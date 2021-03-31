@@ -1,0 +1,111 @@
+body{
+	font-family: system-ui;
+	margin: 0;
+	padding: 0;
+}
+
+// #f6f5f5
+
+img{
+	width: 100%;
+}
+
+.margin{
+	padding: 4em;
+}
+
+.seleccionar__pokemon-container{
+	display:  grid;
+	grid-template-columns: 3fr 7fr;
+	padding: 2em 8em;
+	background: white;
+	grid-gap: 4em;
+}
+
+.seleccionar__pokemon-container:nth-child(odd){
+	background: #f6f5f5;
+}
+
+
+.seleccionar__pokemon{
+	background: white;
+	border-radius: 2em;
+	text-align: center;
+	padding: 2em;
+	box-shadow: 0px 2px 20px 10px #efefef;
+	transition: .3s;
+}
+
+.seleccionar__pokemon:hover{
+	background: #058bb3;
+	cursor: pointer;
+}
+.seleccionar__pokemon:hover .seleccionar__nombre{
+	color: white;
+}
+
+.seleccionar__pokemon-imagen{
+	width: 80px;
+	height: 80px;
+}
+
+.seleccionar__nombre{
+	color: #5f5b54;
+	margin-bottom: .5em;
+}
+.seleccionar__tipo{
+	color: #c5a056;
+	font-weight: 600;
+}
+
+.seleccionar__caracteristicas{
+	padding: 2em 0;
+	font-weight: 600;
+}
+
+.seleccionar__caracteristica{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-bottom: .5em;
+}
+
+
+.seleccionar__nombre--caracteristica{
+	color: #a5a09a;
+	margin-right: 2em;
+
+}
+
+.seleccionar__valor{
+	color: #7e7a75;
+	margin-right: 2em;
+}
+
+.seleccionar__grafico{
+	width: 450px;
+	height: 16px;
+	background: white;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.seleccionar__cantidad{
+	height: 100%;
+}
+
+.bad{
+	background: #e15656;
+}
+
+.medium{
+	background: #f6a22f;
+}
+
+.good{
+	background: #f5c61d;
+}
+
+.excelent{
+	background: #64a245;
+}
