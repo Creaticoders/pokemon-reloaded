@@ -1,0 +1,225 @@
+body{
+	font-family: system-ui;
+	margin: 0;
+	padding: 0;
+	overflow-x: hidden;
+	padding: 4em;
+	height: 100vh;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+
+img{
+	width: 100%;
+}
+
+.margin{
+	padding: 4em;
+}
+
+/* -----------------------------------------
+   ------------- Seleccionador -------------
+   -----------------------------------------
+ */
+
+.seleccionar__title{
+	font-size: 2rem;
+}
+ .seleccionar__container{
+ 	display: grid;
+ 	grid-template-columns: repeat(4, 1fr);
+ 	grid-gap: 2em;
+ 	margin-top: 6em;
+ }
+
+
+.seleccionar__pokemon-container{
+	display:  grid;
+	background: white;
+	grid-gap: 4em;
+}
+
+.seleccionar__pokemon-container:nth-child(odd){
+	background: #f6f5f5;
+}
+
+
+.seleccionar__pokemon{
+	background: white;
+	border-radius: 2em;
+	text-align: center;
+	padding: 4em 2em;
+	box-shadow: 0px 2px 20px 10px #efefef;
+	transition: .3s;
+}
+
+.seleccionar__pokemon:hover{
+	background: #058bb3;
+	cursor: pointer;
+}
+.seleccionar__pokemon:hover .seleccionar__nombre{
+	color: white;
+}
+
+.seleccionar__pokemon-imagen{
+	width: 80px;
+	height: 80px;
+}
+
+.seleccionar__nombre{
+	color: #5f5b54;
+	margin-bottom: .5em;
+}
+.seleccionar__tipo{
+	color: #c5a056;
+	font-weight: 600;
+}
+
+.seleccionar__caracteristicas{
+	padding: 2em 0;
+	font-weight: 600;
+}
+
+.seleccionar__caracteristica{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-bottom: .5em;
+}
+
+
+.seleccionar__nombre--caracteristica{
+	color: #a5a09a;
+	margin-right: 2em;
+
+}
+
+.seleccionar__valor{
+	color: #7e7a75;
+	margin-right: 2em;
+}
+
+.seleccionar__grafico{
+	width: 450px;
+	height: 16px;
+	background: white;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+.seleccionar__cantidad{
+	height: 100%;
+}
+
+.bad{
+	background: #e15656;
+}
+
+.medium{
+	background: #f6a22f;
+}
+
+.good{
+	background: #f5c61d;
+}
+
+.excelent{
+	background: #64a245;
+}
+
+/* -----------------------------------------
+   ------------- Loader -------------
+   -----------------------------------------
+ */
+
+ .loader{
+ 	width: 100vw;
+ 	height: 100vh;
+ 	display: flex;
+ 	align-items: center;
+ 	justify-content: center;
+ 	background: #fbab5c;
+ 	position: fixed;
+ 	top: 0;
+ 	left: 0;
+ }
+
+ .loader__pockeball{
+ 	height: 250px;
+ 	width: 250px;
+ 	border: 13px solid #393b4f;
+ 	border-radius: 50%;
+ 	background-image: linear-gradient(
+ 		#f51939 125px,
+ 		white 125px
+	);
+	position: relative;
+	animation: load 2s infinite;
+ }
+
+ @keyframes load{
+ 	50%{
+ 		transform: scale(0.7);
+ 	}
+ }
+
+ .loader__pockeball:before{
+ 	position: absolute;
+ 	content: '';
+ 	height: 25px;
+ 	width: 250px;
+ 	background-color: #383b4f;
+ 	top: 112.5px;
+ }
+
+ .loader__pockeball:after{
+ 	position: absolute;
+ 	content: '';
+ 	height: 90px;
+ 	width: 90px;
+ 	background-image: radial-gradient(
+ 		#ffffff 0px, #ffffff 10px,
+ 		#383b4f 10px, #383b4f 15px,
+ 		#ffffff 15px, #ffffff 32px,
+ 		#383b4f 32px
+	);
+	border-radius: 50%;
+	top: 80px;
+	left: 80px;
+ }
+
+ /* -----------------------------------------
+    ---------------- Batalla ----------------
+    -----------------------------------------
+  */
+
+  .batalla{
+  	display: flex;
+  	justify-content: center;
+  	align-items: center;
+  	position: relative;
+  }
+
+  .batalla__back{
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  	font-size: 3rem;
+  	cursor: pointer;
+  }
+
+
+ /* -----------------------------------------
+    ---------------- Global ----------------
+    -----------------------------------------
+  */
+ .none{
+ 	display: none;
+ }
+
+@media screen and (max-width: 500px){
+	.seleccionar__container{
+		grid-template-columns: 1fr;
+	}
+}
