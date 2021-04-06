@@ -3,22 +3,25 @@
 	<head>
 		<title>Pokemon Reloaded</title>
 		<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+		<link rel="icon" href="assets/images/icon.png">
 	</head>
 	<body>
 		<section class="seleccionar">
+			<h1 class="seleccionar__title">Elige un pokemon</h1>
 			<div class="seleccionar__container"></div>
 		</section>
 
 		<section class="batalla none">
+			<div class="batalla__back">
+				<i class="fas fa-angle-left"></i>
+			</div>
 			<canvas id="campo" class="batalla__campo" width="500" height="500">
 				
 			</canvas>
 		</section>
 
-		<div class="loader none">
-			<div class="loader__pockeball"></div>
-		</div>
 
+		<script src="https://kit.fontawesome.com/406ee761ec.js" crossorigin="anonymous"></script>
 		<script src="assets/js/main.js"></script>
 	</body>
 </html>

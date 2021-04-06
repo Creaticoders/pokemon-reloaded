@@ -1,4 +1,8 @@
-let tablero, direccion
+let tablero, direccion, elegido
+const file = 'assets/images'
+const $seleccionar = document.querySelector('.seleccionar')
+const $container = document.querySelector('.seleccionar__container')
+const $batalla = document.querySelector('.batalla')
 
 const teclas = {
 	UP: 38,
@@ -11,50 +15,37 @@ class Imagen{
 	constructor(url){
 		this.imagenURL = url;
 		this.imagenOK = false
-		this.imagen = new Image();
-		this.imagen.src = this.imagenURL;
-		
 	}
 
 	confirmarOk(elemento){
-		console.log(this)
-		console.log('Hola')
 		elemento.imagenOK = true;
-		console.log(elemento.imagenOK)
 		dibujar();
+	}
+
+	cargar(){
+		this.imagen = new Image();
+		this.imagen.src = this.imagenURL;
+		this.imagen.onload = ()=>{
+			this.confirmarOk(this)
+		};
 	}
 }
 
 class Pokemon{
 
-	constructor(nombre, tipo, rapidez, defensa, ataque, hp,preview,x,y,frenteURL, atrasURL, derURL, izqURL){
+	constructor(nombre, tipo, ataque, hp,velocidad,preview,frenteURL, atrasURL, derURL, izqURL){
 
 		//atributos
 		this.nombre = nombre;
 		this.tipo = tipo;
-		this.caracteristicas = [
-			{
-				nombre: 'Rapidez',
-				valor: rapidez
-			},
-			{
-				nombre: 'Defensa',
-				valor: ataque
-			},
-			{
-				nombre: 'Ataque',
-				valor: ataque
-			},
-			{
-				nombre: 'Hp',
-				valor: hp
-			},
-		]
-		this.preview = preview
+		this.ataque = ataque;
+		this.hp = hp;
+		this.velocidad = velocidad;
+		this.preview = preview;
 
 		//coordenadas
-		this.x = x;
-		this.y = y;
+		this.x = 375;
+		this.y = 250;
 
 		// imagenes
 		this.frente = new Imagen(frenteURL);
@@ -67,38 +58,61 @@ class Pokemon{
 	}
 
 	mostrar(){
-		const $seleccionar = document.querySelector('.seleccionar')
-		const $container = document.querySelector('.seleccionar__container')
-		const $loader = document.querySelector('.loader')
-		const HTMLSring = featuringTemplate(this.nombre, this.tipo, this.caracteristicas, this.preview)
+		
+		const HTMLSring = featuringTemplate(this.nombre, this.tipo, this.preview)
+
 		$container.innerHTML += HTMLSring
 		const $pokemons = document.querySelectorAll('.seleccionar__pokemon')
 
 		$pokemons.forEach(($pokemon)=>{
 			$pokemon.addEventListener('click', ()=>{
 				$seleccionar.classList.add('none')
-				$loader.classList.remove('none')
-
-				setTimeout(()=>{
-					const $batalla = document.querySelector('.batalla')
-					$loader.classList.add('none')
-					$batalla.classList.remove('none')
-
-					inicio()
-				},3000)
+				$batalla.classList.remove('none')
+				elegido = this
+				inicio()
 			})
 		})
 	}
+	seleccionar(){}
 }
 
 const pokemons = [
 
-	new Pokemon('Pikachu', 'Electrico', 50, 45, 60, 50, 'assets/images/pikachu.png'),
-	new Pokemon('Pikachu', 'Electrico', 50, 45, 60, 50, 'assets/images/pikachu.png'),
-	new Pokemon('Pikachu', 'Electrico', 50, 45, 60, 50, 'assets/images/pikachu.png'),
-	new Pokemon('Pikachu', 'Electrico', 50, 45, 60, 50, 'assets/images/pikachu.png')
+	new Pokemon('Pikachu', 'Electrico', 50, 45, 10,
+		`${file}/pikachu.png`,
+		`${file}/pikachu-frente.png`,
+		`${file}/pikachu-atras.png`,
+		`${file}/pikachu-derecha.png`,
+		`${file}/pikachu-izquierda.png`,
+	 ),
+	new Pokemon('Pikachu', 'Electrico', 50, 45, 10,
+		`${file}/pikachu.png`,
+		`${file}/pikachu-frente.png`,
+		`${file}/pikachu-atras.png`,
+		`${file}/pikachu-derecha.png`,
+		`${file}/pikachu-izquierda.png`,
+	 ),
+	new Pokemon('Pikachu', 'Electrico', 50, 45, 10,
+		`${file}/pikachu.png`,
+		`${file}/pikachu-frente.png`,
+		`${file}/pikachu-atras.png`,
+		`${file}/pikachu-derecha.png`,
+		`${file}/pikachu-izquierda.png`,
+	 ),
+	new Pokemon('Pikachu', 'Electrico', 50, 45, 10,
+		`${file}/pikachu.png`,
+		`${file}/pikachu-frente.png`,
+		`${file}/pikachu-atras.png`,
+		`${file}/pikachu-derecha.png`,
+		`${file}/pikachu-izquierda.png`,
+	 ),
 ]
+const $back = document.querySelector('.batalla__back')
 
+$back.addEventListener('click', ()=>{
+	$seleccionar.classList.remove('none')
+	$batalla.classList.add('none')
+})
 
 pokemons.forEach(pokemon=>{
 	pokemon.mostrar()
@@ -106,20 +120,18 @@ pokemons.forEach(pokemon=>{
 
 
 let fondo = new Imagen('assets/images/tile.png')
-console.log(fondo)
 
 function inicio() {
 	const canvas = document.getElementById('campo');
 	tablero = canvas.getContext("2d")
+	fondo.cargar();
+	elegido.frente.cargar()
+	elegido.atras.cargar()
+	elegido.der.cargar()
+	elegido.izq.cargar()
 
-	fondo.imagen.onload = ()=>{
-		fondo.confirmarOk(fondo)
-	};
-
-	console.log(fondo)
-	// cargarImagen(fondo.imagen, fondo.url, fondo.confirmarOk)
-
-	// document.addEventListener("keydown", teclado)
+	document.addEventListener("keydown", teclado);
+	
 	dibujar()
 }
 
@@ -129,19 +141,37 @@ function cargarImagen(elemento, url, load) {
 	elemento.onload = load;
 }
 
-function teclado(e) {
-	let codigo = e.keyCode;
-	console.log(codigo)
-}
 
 function dibujar() {
-	console.log(fondo.imagenOK)
 	if(fondo.imagenOK == true){
 		tablero.drawImage(fondo.imagen, 0,0)
 	}
+
+	let pokemonDibujo = elegido.izq.imagen
+
+	let derOk = elegido.der.imagenOK
+	let izqOk = elegido.izq.imagenOK
+	let frenteOk = elegido.frente.imagenOK
+	let atrasOk = elegido.atras.imagenOK
+
+	if(derOk && izqOk && frenteOk && atrasOk){
+		if(direccion == teclas.UP){
+			pokemonDibujo = elegido.atras.imagen;
+		}
+		if(direccion == teclas.DOWN){
+			pokemonDibujo = elegido.frente.imagen;
+		}
+		if(direccion == teclas.LEFT){
+			pokemonDibujo = elegido.izq.imagen;
+		}
+		if(direccion == teclas.RIGHT){
+			pokemonDibujo = elegido.der.imagen;
+		}
+		tablero.drawImage(pokemonDibujo, elegido.x,elegido.y);
+	}
 }
 
-function featuringTemplate(nombre, tipo, caracteristicas, url){
+function featuringTemplate(nombre, tipo, url){
 	return(`
 		<div class="seleccionar__pokemon-container">
 			<div class="seleccionar__pokemon">
@@ -149,38 +179,31 @@ function featuringTemplate(nombre, tipo, caracteristicas, url){
 				<h3 class="seleccionar__nombre">${nombre}</h3>
 				<span class="seleccionar__tipo">${tipo}</span>
 			</div>
-			<div class="seleccionar__caracteristicas">
-				${
-					caracteristicas.map(({nombre, valor})=>`
-						<div class="seleccionar__caracteristica">
-							<span class="seleccionar__nombre--caracteristica">${nombre}</span>
-							<span class="seleccionar__valor">${valor}</span>
-							<div class="seleccionar__grafico">
-								<div class="seleccionar__cantidad ${choiseClass(valor)}" style="width: ${valor}%;"></div>
-							</div>
-
-						</div>
-					`)
-				}
-				
-			</div>
 		</div>
 	`)
 }
 
-function choiseClass(valor) {
-	if(valor > 0 && valor <= 25){
-		return 'bad'
+function teclado (datos) {
+	
+	let codigo = datos.keyCode;
+
+	if(codigo == teclas.UP && elegido.y >= 0){
+
+		elegido.y -= elegido.velocidad;
 	}
-	if(valor > 25 && valor <= 50){
-	 return 'medium'
+	if(codigo == teclas.DOWN && elegido.y < 450){
+		elegido.y += elegido.velocidad;
+		
 	}
-	if(valor > 50 && valor <= 75){
-	 return 'good'
+	if(codigo == teclas.LEFT && elegido.x > 0){
+		elegido.x -= elegido.velocidad;
 	}
-	if(valor > 75 && valor <= 100){
-	 return 'excelent'
+	if(codigo == teclas.RIGHT && elegido.x < 450){//160
+		elegido.x += elegido.velocidad;
 	}
-	return ''
+
+	direccion = codigo;
+
+	dibujar();
 
 }
